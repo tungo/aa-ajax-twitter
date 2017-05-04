@@ -24,6 +24,15 @@ const APIUtil = {
       data: queryVal,
       success
     });
+  },
+
+  createTweet(data) {
+    return $.ajax({
+      method: 'POST',
+      url: 'tweets',
+      dataType: 'json',
+      data
+    });
   }
 
 };

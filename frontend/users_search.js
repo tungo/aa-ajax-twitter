@@ -21,8 +21,6 @@ class UsersSearch {
   renderResult(res) {
     this.$ul.empty();
 
-
-
     res.forEach((user) => {
 
       let $button = $('<button></button>');
