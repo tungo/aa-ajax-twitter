@@ -33,6 +33,15 @@ const APIUtil = {
       dataType: 'json',
       data
     });
+  },
+
+  getTweets(data) {
+    return $.ajax({
+      method: 'GET',
+      url: '/feed',
+      dataType: 'json',
+      data
+    });
   }
 
 };

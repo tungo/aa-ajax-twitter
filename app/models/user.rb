@@ -41,19 +41,24 @@ class User < ActiveRecord::Base
     self.save!
   end
 
-  def feed_tweets(limit = nil, max_created_at = nil)
+  def feed_tweets(limit = 20, max_created_at = 1.year.ago)
+    max_created_at ||= 1.year.ago
+
     @tweets = Tweet
       .joins(:user)
       .joins("LEFT OUTER JOIN follows ON users.id = follows.followee_id")
       .where("tweets.user_id = :id OR follows.follower_id = :id", id: self.id)
       .order("tweets.created_at DESC")
+      .limit(limit)
+      .where("tweets.created_at > ?", max_created_at)
       .uniq
 
     # TODO: How can we use limit/max_created_at here??
 
+
     @tweets
   end
-  
+
   def followed_user_ids
     @followed_user_ids ||= out_follows.pluck(:followee_id)
   end
